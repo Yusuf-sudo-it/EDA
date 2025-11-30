@@ -20,10 +20,24 @@ except ImportError as e:
         sys.exit(1)
 
 # Load the data
+import os
+data_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'adult.data')
+if not os.path.exists(data_path):
+    data_path = os.path.join('data', 'adult.data')
+    if not os.path.exists(data_path):
+        data_path = os.path.join('..', 'data', 'adult.data')
+
+# Define column names for Adult Census Income dataset
+column_names = [
+    'age', 'workclass', 'fnlwgt', 'education', 'education.num',
+    'marital.status', 'occupation', 'relationship', 'race', 'sex',
+    'capital.gain', 'capital.loss', 'hours.per.week', 'native.country', 'income'
+]
+
 try:
-    df = pd.read_csv('data/adult.data', na_values='?')
+    df = pd.read_csv(data_path, names=column_names, na_values='?', skipinitialspace=True)
 except FileNotFoundError:
-    print("ERROR: data/adult.data not found.")
+    print(f"ERROR: Dataset not found at {data_path}")
     print("Please make sure the dataset is in the data/ folder.")
     sys.exit(1)
 

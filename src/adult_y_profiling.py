@@ -10,9 +10,31 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 from scipy import stats
+import os
+import sys
 
-# Load the data
-df = pd.read_csv('data/adult.csv', na_values='?')
+# Load the data - handle different execution paths
+data_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'adult.data')
+if not os.path.exists(data_path):
+    data_path = os.path.join('data', 'adult.data')
+    if not os.path.exists(data_path):
+        data_path = os.path.join('..', 'data', 'adult.data')
+        if not os.path.exists(data_path):
+            print(f"ERROR: Dataset not found. Tried:")
+            print(f"  - {os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'adult.data')}")
+            print(f"  - {os.path.join('data', 'adult.data')}")
+            print(f"  - {os.path.join('..', 'data', 'adult.data')}")
+            sys.exit(1)
+
+# Define column names for Adult Census Income dataset
+column_names = [
+    'age', 'workclass', 'fnlwgt', 'education', 'education.num',
+    'marital.status', 'occupation', 'relationship', 'race', 'sex',
+    'capital.gain', 'capital.loss', 'hours.per.week', 'native.country', 'income'
+]
+
+# Load the data with column names
+df = pd.read_csv(data_path, names=column_names, na_values='?', skipinitialspace=True)
 
 # Target variable
 target = 'income'
