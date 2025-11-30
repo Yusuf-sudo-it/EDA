@@ -1,17 +1,17 @@
-# EDA Çıktı Örnekleri - Adım Adım Rehber
+# Example EDA Outputs – Step-by-Step Guide
 
-Bu dokümantasyon, her EDA adımında ne tür çıktılar beklenmesi gerektiğini ve bu çıktıların nasıl yorumlanacağını açıklar.
+This document outlines the types of outputs to expect at each stage of Exploratory Data Analysis (EDA) and explains how to interpret them.
 
-## 📋 İçindekiler
+## 📋 Table of Contents
 
-1. [Veri Seti Genel Bakış Çıktıları](#1-veri-seti-genel-bakış-çıktıları)
-2. [Kategorik Değişken Analizi Çıktıları](#2-kategorik-değişken-analizi-çıktıları)
-3. [Target Variable Profiling Çıktıları](#3-target-variable-profiling-çıktıları)
-4. [YData Profiling Raporu Çıktıları](#4-ydata-profiling-raporu-çıktıları)
+1. [Dataset Overview Outputs](#1-dataset-overview-outputs)
+2. [Categorical Variable Analysis Outputs](#2-categorical-variable-analysis-outputs)
+3. [Target Variable Profiling Outputs](#3-target-variable-profiling-outputs)
+4. [YData Profiling Report Outputs](#4-ydata-profiling-report-outputs)
 
 ---
 
-## 1. Veri Seti Genel Bakış Çıktıları
+## 1. Dataset Overview Outputs
 
 ### 1.1 Dataset Shape
 ```
@@ -19,7 +19,7 @@ Number of rows: 32,561
 Number of columns: 15
 Total cells: 488,415
 ```
-**Yorumlama**: Veri setinin boyutunu gösterir. Bu bilgi, veri setinin büyüklüğünü ve analiz için yeterli olup olmadığını değerlendirmemize yardımcı olur.
+**Interpretation:** Shows the overall size of your dataset. This informs you about whether you have enough data for analysis and modeling.
 
 ### 1.2 Data Types
 ```
@@ -29,7 +29,7 @@ fnlwgt             int64
 education         object
 ...
 ```
-**Yorumlama**: Her sütunun veri tipini gösterir. Sayısal (int64, float64) ve kategorik (object) değişkenleri ayırt etmemize yardımcı olur.
+**Interpretation:** Lists the data types for each column. Helps distinguish between numerical (int64, float64) and categorical (object) variables.
 
 ### 1.3 Missing Values Analysis
 ```
@@ -42,20 +42,20 @@ native.country        583                   1.79
 Total missing cells: 4,262
 Total missing percentage: 0.87%
 ```
-**Yorumlama**: 
-- Hangi sütunlarda eksik değer olduğunu gösterir
-- Eksik değer yüzdesi %5'in üzerindeyse dikkat edilmelidir
-- Eksik değer stratejisi belirlenmelidir (silme, doldurma, vb.)
+**Interpretation:**
+- Shows which columns have missing values and their proportions
+- If the proportion is greater than 5%, pay special attention
+- You must define a missing value handling strategy (removal, imputation, etc.)
 
 ### 1.4 Duplicate Rows
 ```
 Number of duplicate rows: 24
 Duplicate percentage: 0.07%
 ```
-**Yorumlama**: 
-- Tekrar eden kayıt sayısını gösterir
-- Yüksek duplicate oranı veri kalitesi sorununu işaret edebilir
-- Genellikle %1'in altı kabul edilebilir
+**Interpretation:** 
+- Indicates the number and proportion of duplicate records
+- A high number may signal data quality issues
+- Under 1% is generally considered acceptable
 
 ### 1.5 Basic Statistics (Numerical Columns)
 ```
@@ -69,16 +69,16 @@ min       17.0000   12285.0000        1.0000        0.0000      0.0000         1
 75%       48.0000  237051.0000       12.0000        0.0000      0.0000        45.0000
 max       90.0000  1484705.0000      16.0000    99999.0000   4356.0000        99.0000
 ```
-**Yorumlama**:
-- **count**: Eksik değer olmayan gözlem sayısı
-- **mean**: Ortalama değer
-- **std**: Standart sapma (değişkenlik ölçüsü)
-- **min/max**: Minimum ve maksimum değerler
-- **25%, 50%, 75%**: Quartile'lar (medyan = 50%)
+**Interpretation:**
+- **count:** Number of non-missing observations
+- **mean:** Average value
+- **std:** Standard deviation (measure of variance)
+- **min/max:** Minimum and maximum values
+- **25%, 50%, 75%:** Quartiles (median = 50%)
 
 ---
 
-## 2. Kategorik Değişken Analizi Çıktıları
+## 2. Categorical Variable Analysis Outputs
 
 ### 2.1 Value Counts
 ```
@@ -98,10 +98,10 @@ Private: 22,696 (69.70%)
 Self-emp-not-inc: 2,541 (7.80%)
 ...
 ```
-**Yorumlama**:
-- Her kategorinin frekansını gösterir
-- Kategori dağılımının dengeli olup olmadığını kontrol ederiz
-- Çok düşük frekanslı kategoriler (rare categories) dikkat gerektirir
+**Interpretation:**
+- Shows frequency for each category
+- Helps assess whether categories are balanced
+- Watch out for rare categories (very low counts)
 
 ### 2.2 Statistics
 ```
@@ -110,14 +110,14 @@ Statistics:
   Missing values: 1836 (5.63%)
   Most frequent: Private
 ```
-**Yorumlama**:
-- **Unique values**: Kategori sayısı (yüksekse encoding zorlaşabilir)
-- **Missing values**: Eksik değer sayısı ve yüzdesi
-- **Most frequent**: En sık görülen kategori (mod)
+**Interpretation:**
+- **Unique values:** Number of categories (lots of categories may make encoding harder)
+- **Missing values:** Count and percent of missing data
+- **Most frequent:** Most common category (mode)
 
 ---
 
-## 3. Target Variable Profiling Çıktıları
+## 3. Target Variable Profiling Outputs
 
 ### 3.1 Target Variable Distribution
 ```
@@ -130,10 +130,10 @@ income Distribution (%):
 <=50K    75.92%
 >50K     24.08%
 ```
-**Yorumlama**:
-- **Class Imbalance**: Target variable'da dengesizlik var mı?
-- Bu örnekte %75.92 vs %24.08 → **Imbalanced dataset**
-- Model eğitiminde bu durumu dikkate almak gerekir (SMOTE, class weights, vb.)
+**Interpretation:**
+- **Class Imbalance:** Is the target variable unbalanced?
+- In this example, 75.92% vs 24.08% → **Imbalanced dataset**
+- This must be accounted for in modeling (SMOTE, class weights, etc.)
 
 ### 3.2 Numerical Features vs Target
 ```
@@ -150,12 +150,12 @@ max      90.00     90.00
 
 T-test p-value: 0.000000 (Significant)
 ```
-**Yorumlama**:
-- Her gelir grubu için sayısal özelliklerin istatistiksel özeti
-- **T-test**: İki grup arasında anlamlı fark var mı?
-  - p-value < 0.05 → **Significant** (gruplar arası fark anlamlı)
-  - p-value >= 0.05 → **Not Significant** (gruplar arası fark anlamlı değil)
-- Bu örnekte yaş ile gelir arasında anlamlı bir fark var (yüksek gelirli grup daha yaşlı)
+**Interpretation:**
+- Summary statistics for numerical features by target group
+- **T-test:** Is there a statistically significant difference between groups?
+  - p-value < 0.05 → **Significant** (difference exists)
+  - p-value ≥ 0.05 → **Not Significant**
+- In this example, older ages are significantly associated with higher income
 
 ### 3.3 Categorical Features vs Target
 ```
@@ -179,13 +179,13 @@ Own-child       98.52     1.48
 
 Chi-square test p-value: 0.000000 (Significant)
 ```
-**Yorumlama**:
-- **Cross-tabulation**: Her kategori için gelir dağılımı
-- **Percentage**: Her kategoride yüksek/düşük gelirli oranı
-  - Örnek: "Husband" kategorisinde %84.96 yüksek gelirli
-- **Chi-square test**: Kategorik değişken ile target arasında ilişki var mı?
-  - p-value < 0.05 → **Significant** (ilişki var)
-  - Bu örnekte relationship ile income arasında güçlü bir ilişki var
+**Interpretation:**
+- **Cross-tabulation:** Distribution of the target across categories
+- **Percentage:** Share of target classes within each category
+  - For example, 84.96% of "Husband" are high income
+- **Chi-square test:** Is there a relationship between the categorical variable and the target?
+  - p-value < 0.05 → **Significant** relationship
+  - In this example, "relationship" and "income" are strongly related
 
 ### 3.4 Feature Importance Ranking
 ```
@@ -201,113 +201,112 @@ TOP FEATURES BY IMPORTANCE (Combined Ranking):
 9. workclass: 0.0987
 10. race: 0.0456
 ```
-**Yorumlama**:
-- **Sayısal özellikler**: Korelasyon katsayısı (0 ile 1 arası, mutlak değer)
-- **Kategorik özellikler**: Cramér's V (0 ile 1 arası)
-- **Yorumlama**:
-  - 0.0 - 0.1: Çok zayıf ilişki
-  - 0.1 - 0.3: Zayıf ilişki
-  - 0.3 - 0.5: Orta ilişki
-  - 0.5 - 0.7: Güçlü ilişki
-  - 0.7 - 1.0: Çok güçlü ilişki
-- Bu örnekte "relationship" ve "marital.status" en önemli özellikler
+**Interpretation:**
+- **Numerical features:** Use correlation coefficient (absolute value, 0 to 1)
+- **Categorical features:** Use Cramér's V statistic (0 to 1)
+- Interpretation:
+  - 0.0 – 0.1: Very weak relationship
+  - 0.1 – 0.3: Weak
+  - 0.3 – 0.5: Moderate
+  - 0.5 – 0.7: Strong
+  - 0.7 – 1.0: Very strong
+- Here, "relationship" and "marital.status" are the most important features
 
 ### 3.5 Key Insights
 ```
-En yüksek anlam içeren değişkenler (Target ile güçlü ilişki):
+Most significant variables (strong relation with the target):
   - relationship: 0.4523
   - marital.status: 0.4121
   - age: 0.2345
   - education.num: 0.2234
   - hours.per.week: 0.1987
 ```
-**Yorumlama**:
-- Model eğitimi için en önemli özellikler
-- Feature selection yaparken bu listeyi kullanabiliriz
-- Düşük önemli özellikler (örn: race: 0.0456) modelden çıkarılabilir
+**Interpretation:**
+- These are the most important features for modeling
+- Use this ranking to select features if needed
+- Features with low importance (e.g., race: 0.0456) may be dropped from the model
 
 ---
 
-## 4. YData Profiling Raporu Çıktıları
+## 4. YData Profiling Report Outputs
 
-### 4.1 HTML Raporu Yapısı
+### 4.1 HTML Report Structure
 
-YData Profiling, `adult_report.html` adında interaktif bir HTML raporu oluşturur.
+YData Profiling creates an interactive HTML report, e.g., `adult_report.html`.
 
 #### 4.1.1 Overview Section
-- **Dataset info**: Satır/sütun sayısı, eksik değer yüzdesi
-- **Variables**: Değişken sayısı (sayısal/kategorik)
-- **Warnings**: Veri kalitesi uyarıları
+- **Dataset info:** Number of rows/columns, percent of missing values
+- **Variables:** Number of numerical/categorical variables
+- **Warnings:** Data quality alerts
 
 #### 4.1.2 Variables Section
-Her değişken için:
-- **Statistics**: Temel istatistikler
-- **Histogram**: Dağılım grafiği
-- **Common values**: En sık görülen değerler
-- **Extreme values**: Aykırı değerler
+For each variable:
+- **Statistics:** Basic statistics
+- **Histogram:** Distribution plot
+- **Common values:** Most frequent values
+- **Extreme values:** Outliers
 
 #### 4.1.3 Interactions Section
-- **Scatter plots**: Sayısal değişkenler arası ilişkiler
-- **Correlation matrix**: Korelasyon matrisi
+- **Scatter plots:** Relationships between numerical variables
+- **Correlation matrix:** Matrix of variable correlations
 
 #### 4.1.4 Correlations Section
-- **Pearson correlation**: Sayısal değişkenler için
-- **Spearman correlation**: Sıralı değişkenler için
-- **Kendall correlation**: Küçük veri setleri için
-- **Cramér's V**: Kategorik değişkenler için
+- **Pearson correlation:** For numerical variables
+- **Spearman correlation:** For ordinal/ranked variables
+- **Kendall correlation:** For small datasets
+- **Cramér's V:** For categorical variables
 
 #### 4.1.5 Missing Values Section
-- **Missing values matrix**: Eksik değerlerin görselleştirmesi
-- **Missing values heatmap**: Eksik değerlerin korelasyonu
+- **Missing values matrix:** Visualization of missing data
+- **Missing values heatmap:** Correlation of missing patterns
 
 #### 4.1.6 Sample Section
-- **First rows**: İlk 10 satır
-- **Last rows**: Son 10 satır
+- **First rows:** First 10 rows of the data
+- **Last rows:** Last 10 rows
 
-### 4.2 Raporu Yorumlama
+### 4.2 How to Interpret the Report
 
-1. **Overview'a bakın**: Genel veri kalitesi nasıl?
-2. **Warnings'leri kontrol edin**: Hangi uyarılar var?
-3. **Correlations'a odaklanın**: Hangi özellikler birbiriyle ilişkili?
-4. **Missing values'i inceleyin**: Eksik değerler rastgele mi yoksa pattern var mı?
-5. **Interactions'ı keşfedin**: Beklenmedik ilişkiler var mı?
-
----
-
-## 📊 Genel EDA Çıktı Kontrol Listesi
-
-Her EDA çalışmasında şunları kontrol edin:
-
-- [ ] Veri seti boyutu ve yapısı anlaşıldı mı?
-- [ ] Eksik değerler tespit edildi ve strateji belirlendi mi?
-- [ ] Duplicate kayıtlar kontrol edildi mi?
-- [ ] Sayısal değişkenlerin dağılımı incelendi mi?
-- [ ] Kategorik değişkenlerin frekansları analiz edildi mi?
-- [ ] Target variable dağılımı kontrol edildi mi? (Class imbalance?)
-- [ ] Her özellik için target ile ilişki analiz edildi mi?
-- [ ] Feature importance sıralaması yapıldı mı?
-- [ ] Korelasyon matrisi incelendi mi? (Multicollinearity?)
-- [ ] Aykırı değerler (outliers) tespit edildi mi?
-- [ ] Görselleştirmeler oluşturuldu mu?
-- [ ] Key insights özetlendi mi?
+1. **Check the Overview:** What is the overall data quality?
+2. **Review Warnings:** Are there any potential data issues?
+3. **Focus on Correlations:** Which variables are related?
+4. **Examine Missing Values:** Are missing patterns random or systematic?
+5. **Explore Interactions:** Any unexpected relationships?
 
 ---
 
-## 🎯 Sonraki Adımlar
+## 📊 General EDA Output Checklist
 
-EDA tamamlandıktan sonra:
+For every EDA project, verify that you have:
 
-1. **Data Preprocessing**: Eksik değer doldurma, encoding, scaling
-2. **Feature Engineering**: Yeni özellikler oluşturma
-3. **Feature Selection**: Önemli özellikleri seçme
-4. **Model Training**: Makine öğrenmesi modelleri eğitme
-5. **Model Evaluation**: Model performansını değerlendirme
+- [ ] Understood dataset size and structure
+- [ ] Detected & handled missing values
+- [ ] Checked for duplicate records
+- [ ] Examined distributions of numerical variables
+- [ ] Analyzed frequency of categorical variables
+- [ ] Checked target variable distribution (class imbalance?)
+- [ ] Analyzed relationship between each feature and the target variable
+- [ ] Created feature importance ranking
+- [ ] Reviewed correlation matrix (multicollinearity?)
+- [ ] Detected outliers
+- [ ] Generated and reviewed visuals/plots
+- [ ] Summarized key insights
 
 ---
 
-## 📚 Kaynaklar
+## 🎯 Next Steps
+
+After completing EDA:
+
+1. **Data Preprocessing:** Handle missing values, encode categorical variables, scale features
+2. **Feature Engineering:** Create new features if needed
+3. **Feature Selection:** Select the most important features
+4. **Model Training:** Train the chosen machine learning models
+5. **Model Evaluation:** Assess model performance
+
+---
+
+## 📚 References
 
 - [Pandas Documentation](https://pandas.pydata.org/docs/)
 - [YData Profiling Documentation](https://ydata-profiling.ydata.ai/)
 - [Statistical Tests Guide](https://www.statstest.com/)
-
